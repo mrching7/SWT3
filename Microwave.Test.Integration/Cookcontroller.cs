@@ -18,18 +18,18 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            IPowerButton = new Button();
-            ITimeButton = new Button();
-            ICancelButton = new Button();
-            IDoor = new Door();
-            IUserInterface = new UserInterface();
+            //IPowerButton = new Button();
+            //ITimeButton = new Button();
+            //ICancelButton = new Button();
+            //IDoor = new Door();
+            //IUserInterface = new UserInterface();
 
-            IDoor = Substitute.For<IDoor>();
-            ILight = Substitute.For<ILight>();
-            IDisplay = Substitute.For<IDisplay>();
-            ICookController = Substitute.For<ICookController>();
+            //IDoor = Substitute.For<IDoor>();
+            //ILight = Substitute.For<ILight>();
+            //IDisplay = Substitute.For<IDisplay>();
+            //ICookController = Substitute.For<ICookController>();
 
-            userInterface = new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
+            //userInterface = new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace MicrowaveOvenClasses.Controllers
         {
             switch (myState)
             {
-                case States.SETPOWER:
+                case States.SETPOWER: //skal være ready her da mystate er sat til 0 og ikke setpower
                     myDisplay.ShowTime(time, 0);
                     myState = States.SETTIME;
                     break;
@@ -85,10 +85,10 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.SETTIME:
                     myDisplay.Clear();
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel, time*60);
+                    myCooker.StartCooking(powerLevel, time); //hvorfor *60 fejl??
                     myState = States.COOKING;
                     break;
-                case States.COOKING:
+                case States.COOKING: 
                     powerLevel = 50;
                     time = 1;
                     myCooker.Stop();
