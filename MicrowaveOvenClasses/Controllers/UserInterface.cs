@@ -28,7 +28,7 @@ namespace MicrowaveOvenClasses.Controllers
             IDisplay display,
             ILight light,
             ICookController cooker)
-        {
+        {   
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
