@@ -44,11 +44,19 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
+        public void Light_Turned_On()
+        {
+            IPowerButton.Press();
+
+            ILight.Received().TurnOn();
+        }
+
+        [Test]
         public void OnPowerPressed_Test()
         {
             IPowerButton.Press();
             //default værdier
-            IDisplay.ShowTime(1, 0);
+            IDisplay.Received(1).ShowTime(1, 0);
         }
 
 
@@ -57,7 +65,7 @@ namespace Microwave.Test.Integration
         {
             ITimeButton.Press();
             //Default værdi på 50
-            IDisplay.ShowPower(50);
+            IDisplay.Received(1).ShowPower(Arg.Any<int>());
         }
 
         [Test]
