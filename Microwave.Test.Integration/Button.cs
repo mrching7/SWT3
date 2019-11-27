@@ -36,10 +36,12 @@ namespace Microwave.Test.Integration
             IPowerButton=new Button();
             ITimeButton = new Button();
             ICancelButton = new Button();
+
             IDoor = Substitute.For<IDoor>();
             ILight = Substitute.For<ILight>();
             IDisplay = Substitute.For<IDisplay>();
             ICookController = Substitute.For<ICookController>();
+
             userInterface=new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
         }
 
