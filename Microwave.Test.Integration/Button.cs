@@ -33,7 +33,7 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            IPowerButton=new Button();
+            IPowerButton = new Button();
             ITimeButton = new Button();
             ICancelButton = new Button();
             IDoor=new Door();
