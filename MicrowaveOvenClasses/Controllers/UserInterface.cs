@@ -85,7 +85,7 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.SETTIME:
                     myDisplay.Clear();
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel/7, time*60); //Powerlevel bliver smidt ind som watt skal gøres til procent
+                    myCooker.StartCooking(powerLevel, time*60); 
                     myState = States.COOKING;
                     break;
                 case States.COOKING: 
