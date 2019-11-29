@@ -17,7 +17,7 @@ namespace MicrowaveOvenClasses.Boundary
         }
 
         public void ShowPower(int power)
-        {
+        {   //her er det watt lige før i powertube var det procent hmmmm
             myOutput.OutputLine($"Display shows: {power} W");
         }
 
