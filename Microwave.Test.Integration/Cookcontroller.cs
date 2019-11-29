@@ -74,7 +74,21 @@ namespace Microwave.Test.Integration
             _ITimeButton.Press();
             _ITimeButton.Press();
             _IStartCancelButton.Press();
-            //Fik fejl her da da jeg fik negativ tid
+            //Fik fejl her da da jeg fik negativ tid rettede fejlen og testen virker
+            Thread.Sleep(3000);
+            _iOutput.Received().OutputLine("Display shows: 01:57");
+        }
+        [Test]
+        public void OnTimerTick2()
+        {
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _ITimeButton.Press();
+            _ITimeButton.Press();
+            _IStartCancelButton.Press();
+            //kvalitets sikrer at den virker og tester at funktionen skal fejle
+            Thread.Sleep(2000);
             _iOutput.Received().OutputLine("Display shows: 01:57");
         }
         [Test]
