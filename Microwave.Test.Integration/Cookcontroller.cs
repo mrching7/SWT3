@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Castle.Core.Smtp;
 using MicrowaveOvenClasses.Boundary;
@@ -10,6 +11,9 @@ using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
+
+//using System.Threading;
 
 namespace Microwave.Test.Integration
 {
@@ -31,8 +35,8 @@ namespace Microwave.Test.Integration
         private IOutput _iOutput;
         [SetUp]
         public void Setup()
-        {
-                        _IPowerButton = new Button();
+        { 
+            _IPowerButton = new Button();
             _ITimeButton = new Button();
             _IStartCancelButton = new Button();
             _IDoor = new Door();
@@ -42,7 +46,7 @@ namespace Microwave.Test.Integration
             _iOutput = Substitute.For<IOutput>();
 
 
-            FakeTimer = Substitute.For<ITimer>();
+            FakeTimer = new MicrowaveOvenClasses.Boundary.Timer();
             _ILight = new Light(_iOutput);
             _IDisplay = new Display(_iOutput);
             _IPowerTube = new PowerTube(_iOutput);
@@ -54,32 +58,52 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void TurnOn()//powertube
+        public void StartCooking()//powertube
         {
             _IPowerButton.Press();
             _IPowerButton.Press();
             _IPowerButton.Press();
             _ITimeButton.Press();
             _IStartCancelButton.Press();
-            _ICookController.StartCooking(150, 1);
-            //får fejl her pga bøvl med powertube 1. fejl
-            _IPowerTube.TurnOn(150);
-            _iOutput.Received().OutputLine("PowerTube works with 150 %");
+            //Testen fejler da powertube måler i procent og vi sætter styrken i watt skal ændre boundary values til 700
+            _iOutput.Received().OutputLine("PowerTube works with 150 W");
         }
         [Test]
-        public void ShowPower()//display
+        public void OnTimerTick()
         {
             _IPowerButton.Press();
             _IPowerButton.Press();
             _IPowerButton.Press();
             _ITimeButton.Press();
             _ITimeButton.Press();
+            //_ITimeButton.Press();
             _IStartCancelButton.Press();
-            FakeTimer.TimerTick += Raise.Event();
-
-
+            //FakeTimer.TimerTick += Raise.Event(); 
+            //sleep 3 sek Assert på at tiden er på 1:57, og lav en test case på at tiden ikke siger noget forkert og testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
+            Thread.Sleep(3000);
+            //Fik fejl her da da jeg fik negativ tid
+            _iOutput.Received().OutputLine("Display shows: 01:57");
+        }
+        [Test]
+        public void powerTubeOff()
+        {
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _ITimeButton.Press();
+            //_ITimeButton.Press();
+            _IStartCancelButton.Press();
+            //FakeTimer.TimerTick += Raise.Event(); 
+            //testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
+            //Thread.Sleep(3000);
+            //Fik fejl her da da jeg fik negativ tid
+            //_iOutput.Received().OutputLine("Display shows: 01:00");
+            Thread.Sleep(61000);
+            
+            _iOutput.Received().OutputLine("PowerTube turned off");
 
         }
+
 
 
 
