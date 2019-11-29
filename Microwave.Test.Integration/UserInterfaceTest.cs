@@ -14,8 +14,11 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class Cookcontroller
+    public class UserInterfaceTest
     {
+        //private IUserInterface _ReceivedEventArgs;
+
+        //UUT er UI
         private IButton _IPowerButton;
         private IButton _ITimeButton;
         private IButton _IStartCancelButton;
@@ -28,25 +31,24 @@ namespace Microwave.Test.Integration
         private IDisplay _IDisplay;
         private ICookController _ICookController;
         private IPowerTube _IPowerTube;
-        private IOutput _iOutput;
+
         [SetUp]
         public void Setup()
         {
-                        _IPowerButton = new Button();
+            _IPowerButton = new Button();
             _ITimeButton = new Button();
             _IStartCancelButton = new Button();
             _IDoor = new Door();
             //_ITimer = new Timer();
 
             FakeuserInterface = Substitute.For<IUserInterface>();
-            _iOutput = Substitute.For<IOutput>();
 
-
+            
             FakeTimer = Substitute.For<ITimer>();
-            _ILight = new Light(_iOutput);
-            _IDisplay = new Display(_iOutput);
-            _IPowerTube = new PowerTube(_iOutput);
-
+            _ILight = Substitute.For<ILight>();
+            _IDisplay = Substitute.For<IDisplay>();
+            _IPowerTube = Substitute.For<IPowerTube>();
+            
             _ICookController = new CookController(FakeTimer, _IDisplay, _IPowerTube, FakeuserInterface);
 
             _userInterface = new UserInterface(_IPowerButton, _ITimeButton, _IStartCancelButton, _IDoor, _IDisplay, _ILight, _ICookController);
@@ -54,34 +56,50 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void TurnOn()//powertube
+        public void StartCooking()
         {
-            _IPowerButton.Press();
-            _IPowerButton.Press();
             _IPowerButton.Press();
             _ITimeButton.Press();
             _IStartCancelButton.Press();
-            _ICookController.StartCooking(150, 1);
-            //får fejl her pga bøvl med powertube 1. fejl
-            _IPowerTube.TurnOn(150);
-            _iOutput.Received().OutputLine("PowerTube works with 150 %");
+            _ICookController.StartCooking(50,1);
+
+            _IPowerTube.Received().TurnOn(50);
         }
+
         [Test]
-        public void ShowPower()//display
+        public void Stop()
         {
             _IPowerButton.Press();
-            _IPowerButton.Press();
-            _IPowerButton.Press();
-            _ITimeButton.Press();
             _ITimeButton.Press();
             _IStartCancelButton.Press();
-            FakeTimer.TimerTick += Raise.Event();
+            _IStartCancelButton.Press();
 
+            _ICookController.Stop();
 
-
+            _IPowerTube.Received().TurnOff();
         }
 
+        [Test]
+        public void OnTimerExpired()
+        {
+            _ICookController.StartCooking(50, 1);
 
+            FakeTimer.Expired += Raise.Event();
+
+            Assert.That(FakeTimer.TimeRemaining, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void OnTimerTick()
+        {
+            _IPowerButton.Press();
+            _ITimeButton.Press();
+            _IStartCancelButton.Press();
+
+            FakeTimer.TimerTick += Raise.Event();
+            _IDisplay.Received().ShowTime(1, 0);
+
+        }
 
     }
 }

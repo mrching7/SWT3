@@ -19,6 +19,7 @@ namespace MicrowaveOvenClasses.Boundary
             if (power < 1 || 100 < power)
             {
                 throw new ArgumentOutOfRangeException("power", power, "Must be between 1 and 100 % (incl.)");
+                //det her skal måske rettes til watt i stedet 4 procent 
             }
 
             if (IsOn)

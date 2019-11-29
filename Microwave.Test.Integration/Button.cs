@@ -33,16 +33,14 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            IPowerButton=new Button();
+            IPowerButton = new Button();
             ITimeButton = new Button();
             ICancelButton = new Button();
-
-            //IDoor = Substitute.For<IDoor>();
             IDoor=new Door();
             ILight = Substitute.For<ILight>();
             IDisplay = Substitute.For<IDisplay>();
             ICookController = Substitute.For<ICookController>();
-
+            
             userInterface=new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
         }
 
@@ -72,7 +70,7 @@ namespace Microwave.Test.Integration
             //test 3 trykker på tidsknappen
             IPowerButton.Press();
             ITimeButton.Press();
-            //burde være 1 minut og 0 nul sekunder fejler pga switch statement 
+            
             IDisplay.Received(1).ShowTime(1, 0);
         }
         [Test]
@@ -177,6 +175,8 @@ namespace Microwave.Test.Integration
             //tænder for maskinen
             ICancelButton.Press();
             //test cooking is done på en eller anden måde???
+            userInterface.CookingIsDone();
+            ILight.Received().TurnOff();
         }
 
 
