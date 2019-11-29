@@ -17,6 +17,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
+    [TestFixture]
     class Cookcontroller
     {
         private IButton _IPowerButton;
@@ -43,13 +44,13 @@ namespace Microwave.Test.Integration
 
             FakeuserInterface = Substitute.For<IUserInterface>();
             _iOutput = Substitute.For<IOutput>();
-            
+
 
             FakeTimer = new MicrowaveOvenClasses.Boundary.Timer();
             _ILight = new Light(_iOutput);
             _IDisplay = new Display(_iOutput);
             _IPowerTube = new PowerTube(_iOutput);
-            
+
             _ICookController = new CookController(FakeTimer, _IDisplay, _IPowerTube, FakeuserInterface);
 
             _userInterface = new UserInterface(_IPowerButton, _ITimeButton, _IStartCancelButton, _IDoor, _IDisplay, _ILight, _ICookController);
