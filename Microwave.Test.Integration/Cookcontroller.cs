@@ -13,23 +13,34 @@ using NUnit.Framework;
 
 namespace Microwave.Test.Integration
 {
+    [TestFixture]
     class Cookcontroller
     {
+        private UserInterface _ReceivedEventArgs;
+        private IButton IPowerButton;
+        private IButton ITimeButton;
+        private IButton ICancelButton;
+        private IDoor IDoor;
+        private IUserInterface userInterface;
+        private ILight ILight;
+        private ITimer ITimer;
+        private IDisplay IDisplay;
+        private ICookController ICookController;
+
         [SetUp]
         public void Setup()
         {
-            //IPowerButton = new Button();
-            //ITimeButton = new Button();
-            //ICancelButton = new Button();
-            //IDoor = new Door();
-            //IUserInterface = new UserInterface();
+            IPowerButton = new Button();
+            ITimeButton = new Button();
+            ICancelButton = new Button();
+            IDoor = new Door();
 
-            //IDoor = Substitute.For<IDoor>();
-            //ILight = Substitute.For<ILight>();
-            //IDisplay = Substitute.For<IDisplay>();
-            //ICookController = Substitute.For<ICookController>();
+            IDoor = Substitute.For<IDoor>();
+            ILight = Substitute.For<ILight>();
+            IDisplay = Substitute.For<IDisplay>();
+            ICookController = Substitute.For<ICookController>();
 
-            //userInterface = new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
+            userInterface = new UserInterface(IPowerButton, ITimeButton, ICancelButton, IDoor, IDisplay, ILight, ICookController);
         }
     }
 }
