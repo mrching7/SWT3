@@ -60,6 +60,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Cookcontroller.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="Output_PwrTubeLightDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
