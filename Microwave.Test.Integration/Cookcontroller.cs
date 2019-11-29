@@ -81,11 +81,29 @@ namespace Microwave.Test.Integration
             //FakeTimer.TimerTick += Raise.Event(); 
             //sleep 3 sek Assert på at tiden er på 1:57, og lav en test case på at tiden ikke siger noget forkert og testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
             Thread.Sleep(3000);
-
+            //Fik fejl her da da jeg fik negativ tid
             _iOutput.Received().OutputLine("Display shows: 01:57");
-
+        }
+        [Test]
+        public void powerTubeOff()
+        {
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _IPowerButton.Press();
+            _ITimeButton.Press();
+            //_ITimeButton.Press();
+            _IStartCancelButton.Press();
+            //FakeTimer.TimerTick += Raise.Event(); 
+            //testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
+            //Thread.Sleep(3000);
+            //Fik fejl her da da jeg fik negativ tid
+            //_iOutput.Received().OutputLine("Display shows: 01:00");
+            Thread.Sleep(61000);
+            
+            _iOutput.Received().OutputLine("PowerTube turned off");
 
         }
+
 
 
 
