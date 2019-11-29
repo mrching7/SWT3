@@ -13,7 +13,6 @@ using NSubstitute;
 using NUnit.Framework;
 using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
-//using System.Threading;
 
 namespace Microwave.Test.Integration
 {
@@ -28,7 +27,6 @@ namespace Microwave.Test.Integration
         private IUserInterface _userInterface;
         private ILight _ILight;
         private ITimer FakeTimer;
-        //private ITimer _ITimer;
         private IDisplay _IDisplay;
         private ICookController _ICookController;
         private IPowerTube _IPowerTube;
@@ -40,7 +38,6 @@ namespace Microwave.Test.Integration
             _ITimeButton = new Button();
             _IStartCancelButton = new Button();
             _IDoor = new Door();
-            //_ITimer = new Timer();
 
             FakeuserInterface = Substitute.For<IUserInterface>();
             _iOutput = Substitute.For<IOutput>();
@@ -58,7 +55,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void StartCooking()//powertube
+        public void StartCooking()
         {
             _IPowerButton.Press();
             _IPowerButton.Press();
@@ -76,11 +73,7 @@ namespace Microwave.Test.Integration
             _IPowerButton.Press();
             _ITimeButton.Press();
             _ITimeButton.Press();
-            //_ITimeButton.Press();
             _IStartCancelButton.Press();
-            //FakeTimer.TimerTick += Raise.Event(); 
-            //sleep 3 sek Assert på at tiden er på 1:57, og lav en test case på at tiden ikke siger noget forkert og testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
-            Thread.Sleep(3000);
             //Fik fejl her da da jeg fik negativ tid
             _iOutput.Received().OutputLine("Display shows: 01:57");
         }
@@ -91,13 +84,8 @@ namespace Microwave.Test.Integration
             _IPowerButton.Press();
             _IPowerButton.Press();
             _ITimeButton.Press();
-            //_ITimeButton.Press();
             _IStartCancelButton.Press();
-            //FakeTimer.TimerTick += Raise.Event(); 
             //testcase tilventer i 1 min assert på at powertube er turnoff() f.eks
-            //Thread.Sleep(3000);
-            //Fik fejl her da da jeg fik negativ tid
-            //_iOutput.Received().OutputLine("Display shows: 01:00");
             Thread.Sleep(61000);
             
             _iOutput.Received().OutputLine("PowerTube turned off");
