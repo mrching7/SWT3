@@ -16,34 +16,21 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class Timer
     {
-        private ILight FakeLight;
         private ITimer FakeTimer;
         private IDisplay FakeDisplay;
         private IPowerTube FakePowerTube;
-        private IButton _IPowerButton;
-        private IButton _ITimeButton;
-        private IButton _IStartCancelButton;
-        private IDoor _IDoor;
         private ICookController _ICookController;
-        private IUserInterface _UserInterface;
 
 
 
         [SetUp]
         public void Setup()
         {
-            _IPowerButton = new Button();
-            _ITimeButton = new Button();
-            _IStartCancelButton = new Button();
-            _IDoor = new Door();
-
             FakeTimer = Substitute.For<ITimer>();
             FakeDisplay = Substitute.For<IDisplay>();
             FakePowerTube = Substitute.For<IPowerTube>();
-            FakeLight = Substitute.For<ILight>();
 
             _ICookController = new CookController(FakeTimer, FakeDisplay, FakePowerTube);
-            _UserInterface = new UserInterface(_IPowerButton, _ITimeButton, _IStartCancelButton, _IDoor, FakeDisplay, FakeLight, _ICookController);
         }
 
         [Test]
