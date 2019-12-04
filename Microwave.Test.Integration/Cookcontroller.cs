@@ -78,19 +78,21 @@ namespace Microwave.Test.Integration
             Thread.Sleep(3000);
             _iOutput.Received().OutputLine("Display shows: 01:57");
         }
-        [Test]
-        public void OnTimerTick2()
-        {
-            _IPowerButton.Press();
-            _IPowerButton.Press();
-            _IPowerButton.Press();
-            _ITimeButton.Press();
-            _ITimeButton.Press();
-            _IStartCancelButton.Press();
-            //kvalitets sikrer at den virker og tester at funktionen skal fejle
-            Thread.Sleep(2000);
-            _iOutput.Received().OutputLine("Display shows: 01:57");
-        }
+
+        //laver test der skal fejle
+        //[Test]
+        //public void OnTimerTick2()
+        //{
+        //    _IPowerButton.Press();
+        //    _IPowerButton.Press();
+        //    _IPowerButton.Press();
+        //    _ITimeButton.Press();
+        //    _ITimeButton.Press();
+        //    _IStartCancelButton.Press();
+        //    //kvalitets sikrer at den virker og tester at funktionen skal fejle
+        //    Thread.Sleep(2000);
+        //    _iOutput.Received().OutputLine("Display shows: 01:57");
+        //}
         [Test]
         public void powerTubeOff()
         {

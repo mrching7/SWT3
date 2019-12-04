@@ -105,8 +105,7 @@ namespace Microwave.Test.Integration
             //tænder for maskinen
             ICancelButton.Press();
             //asserter på at den starter med styrke på 50 og 1 minut
-            ICookController.Received().StartCooking(50, 1);
-            
+            ICookController.Received().StartCooking(50, 60);
         }
         [Test]
         public void OnStartCancelPressed3()
