@@ -78,6 +78,7 @@ namespace Microwave.Test.Integration
             Thread.Sleep(3000);
             _iOutput.Received().OutputLine("Display shows: 01:57");
         }
+        //får fejl fra jenkins men den virker i VS
 
         //laver test der skal fejle
         //[Test]
